@@ -1,0 +1,29 @@
+.todoCreator {
+  height: 80px;
+  margin-bottom: 30px;
+  position: relative;
+}
+.input {
+  padding: 0 10px 0 80px;
+  border-radius: 6px;
+  border: 0;
+  outline: 0;
+  background-color: var(--color-white);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  &::placeholder {
+    color: var(--color-border);
+  }
+}
+.iconBox {
+  width: 80px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}

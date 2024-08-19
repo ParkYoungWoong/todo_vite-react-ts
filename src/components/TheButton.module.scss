@@ -1,0 +1,40 @@
+.theButton {
+  min-width: 72px;
+  padding: 6px 20px;
+  outline: none;
+  border: none;
+  border-left: 1px solid var(--color-border);
+  background-color: #fff;
+  color: #ddd;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  &:hover {
+    background-color: #ddd;
+    color: #fff;
+  }
+  &.active {
+    color: royalblue;
+  }
+  &.success {
+    background-color: royalblue;
+    color: #fff;
+    .theLoader {
+      border-color: #fff;
+    }
+  }
+  &.danger {
+    color: rgba(red, 0.25);
+    &.loading,
+    &:hover {
+      background-color: red;
+      color: #fff;
+    }
+    .theLoader {
+      border-color: #fff;
+    }
+  }
+}

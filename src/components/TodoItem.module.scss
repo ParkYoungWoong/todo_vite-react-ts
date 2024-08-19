@@ -1,0 +1,48 @@
+.todoItem {
+  height: 80px;
+  border-bottom: 1px solid var(--color-border);
+  padding-left: 80px;
+  padding-right: 20px;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+:global .sortable-chosen {
+  opacity: 0.7;
+}
+.title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.theIcon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 24px;
+  z-index: 1;
+}
+.openHandler {
+  color: #ddd;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    color: #333;
+  }
+}
+.dragHandler {
+  color: #ddd;
+  cursor: move;
+  transition: 0.2s;
+  &:hover {
+    color: #333;
+  }
+}

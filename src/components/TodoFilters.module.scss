@@ -1,0 +1,19 @@
+.todoFilters {
+  height: 60px;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-lightgray);
+  position: relative;
+  .theIcon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 24px;
+  }
+  .btnGroup {
+    height: 100%;
+    display: flex;
+    position: absolute;
+    right: 0;
+  }
+}
