@@ -1,6 +1,6 @@
 # 📌 할 일(Todo) 관리 앱
 
-주어진 API를 활용해 '[완성 예시](https://todo-vite-vue3-composition-ts.vercel.app/)' 처럼 할 일(Todo) 관리 기능을 구현합니다.  
+주어진 API를 활용해 '[완성 예시](https://todo-vite-react-ts.vercel.app/)' 처럼 할 일(Todo) 관리 기능을 구현합니다.  
 
 이 앱에서 사용한 주요 라이브러리는 다음과 같습니다.
 
@@ -16,8 +16,8 @@
 - `concurrently`: 여러 개의 스크립트 명령을 동시에(병렬) 실행할 수 있게 해주는 유틸리티입니다.
 - `dotenv`: 환경 변수 관리를 위한 라이브러리로, `.env` 파일에 정의된 변수를 사용할 수 있게 해줍니다.
 
-![완성 예시](./screenshots/ss1.JPG)  
-![완성 예시](./screenshots/ss2.JPG)
+![할 일 관리 앱, 완성 예시](./screenshots/s1.png)  
+![할 일 관리 앱, 완성 예시](./screenshots/s2.png)
 
 ## Vercel
 
