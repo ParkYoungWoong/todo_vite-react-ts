@@ -1,20 +1,20 @@
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
-import { useTodoFilters, useUpdateTodo } from '@/hooks/todo'
-import type { Todo } from '@/hooks/todo'
+import { useTodoStore } from '@/stores/todo'
+import type { Todo } from '@/stores/todo'
 import TheIcon from '@/components/TheIcon'
 import styles from './TodoItem.module.scss'
 
 export default function TodoItem({ todo }: { todo: Todo }) {
-  const filterStatus = useTodoFilters(state => state.filterStatus)
-  const { mutate } = useUpdateTodo()
+  const filterStatus = useTodoStore(state => state.filterStatus)
+  const updateTodo = useTodoStore(state => state.updateTodo)
+
   function toggleDone() {
-    mutate({
+    updateTodo({
       ...todo,
       done: !todo.done
     })
   }
-  function onTodoModal() {}
   return (
     <>
       <div className={styles.todoItem}>
@@ -32,11 +32,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
         </Link>
         <div className="flex-space"></div>
         <Link to={`/${todo.id}`}>
-          <TheIcon
-            className={styles.openHandler}
-            onClick={onTodoModal}>
-            open_in_new
-          </TheIcon>
+          <TheIcon className={styles.openHandler}>open_in_new</TheIcon>
         </Link>
         {filterStatus === 'all' && (
           <TheIcon className={clsx(styles.dragHandler, 'drag-handle')}>

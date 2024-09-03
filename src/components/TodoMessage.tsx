@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { useFetchTodos, useTodoFilters } from '@/hooks/todo'
+import { useTodoStore } from '@/stores/todo'
 import styles from './TodoMessage.module.scss'
 
 export default function TodoMessage() {
-  const { data: todos } = useFetchTodos()
-  const filterStatus = useTodoFilters(state => state.filterStatus)
+  const todos = useTodoStore(state => state.todos)
+  const filterStatus = useTodoStore(state => state.filterStatus)
 
   const message = useMemo(() => {
     if (!todos) {

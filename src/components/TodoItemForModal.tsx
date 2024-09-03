@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useFetchTodos, useUpdateTodo, useDeleteTodo } from '@/hooks/todo'
+import { useTodoStore } from '@/stores/todo'
 import TheIcon from '@/components/TheIcon'
 import TheButton from '@/components/TheButton'
 import TheModal from '@/components/TheModal'
@@ -15,11 +15,11 @@ function formatDate(date: string | undefined) {
 export default function TodoItemForModal() {
   const navigate = useNavigate()
   const { id: todoId } = useParams()
-  const { data: todos } = useFetchTodos()
-  const { mutateAsync: mutateForUpdate, isPending: isPendingForUpdate } =
-    useUpdateTodo()
-  const { mutateAsync: mutateForDelete, isPending: isPendingForDelete } =
-    useDeleteTodo()
+  const todos = useTodoStore(state => state.todos)
+  const isUpdating = useTodoStore(state => state.isLoadingForUpdateTodo)
+  const isDeleting = useTodoStore(state => state.isLoadingForDeleteTodo)
+  const updateTodo = useTodoStore(state => state.updateTodo)
+  const deleteTodo = useTodoStore(state => state.deleteTodo)
 
   const currentTodo = todos?.find(todo => todo.id === todoId)
   const [title, setTitle] = useState('')
@@ -32,9 +32,9 @@ export default function TodoItemForModal() {
     }
   }, [currentTodo])
 
-  async function updateTodo() {
+  async function handleUpdateTodo() {
     if (currentTodo) {
-      await mutateForUpdate({
+      await updateTodo({
         ...currentTodo,
         title,
         done
@@ -42,9 +42,9 @@ export default function TodoItemForModal() {
       offModal()
     }
   }
-  async function deleteTodo() {
+  async function handleDeleteTodo() {
     if (currentTodo) {
-      await mutateForDelete(currentTodo)
+      await deleteTodo(currentTodo)
       offModal()
     }
   }
@@ -71,14 +71,14 @@ export default function TodoItemForModal() {
           <TheButton onClick={offModal}>취소</TheButton>
           <TheButton
             danger
-            loading={isPendingForDelete}
-            onClick={deleteTodo}>
+            loading={isDeleting}
+            onClick={handleDeleteTodo}>
             삭제
           </TheButton>
           <TheButton
             success
-            loading={isPendingForUpdate}
-            onClick={updateTodo}>
+            loading={isUpdating}
+            onClick={handleUpdateTodo}>
             저장
           </TheButton>
         </div>

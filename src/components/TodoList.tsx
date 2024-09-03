@@ -1,13 +1,13 @@
 import React, { useRef, useEffect } from 'react'
 import Sortable from 'sortablejs'
-import { useFetchTodos, useReorderTodos } from '@/hooks/todo'
+import { useTodoStore } from '@/stores/todo'
 import TodoFilters from '@/components/TodoFilters'
 import TodoItem from '@/components/TodoItem'
 import styles from './TodoList.module.scss'
 
 export default function TodoList() {
-  const { data: todos } = useFetchTodos()
-  const { mutate } = useReorderTodos()
+  const todos = useTodoStore(state => state.filteredTodos)
+  const reorderTodos = useTodoStore(state => state.reorderTodos)
   const todoListEl = useRef<HTMLDivElement>(null)
   const sortableInstance = useRef<Sortable | null>(null) // Sortable 인스턴스를 참조하는 Ref 추가
 
@@ -26,7 +26,7 @@ export default function TodoList() {
           const { oldIndex, newIndex } = event
           if (oldIndex === undefined || newIndex === undefined) return
           console.log('oldIndex:', oldIndex, 'newIndex:', newIndex)
-          mutate({
+          reorderTodos({
             oldIndex,
             newIndex
           })

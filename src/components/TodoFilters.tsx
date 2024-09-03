@@ -1,22 +1,18 @@
 import { useState, useEffect } from 'react'
-import {
-  useFetchTodos,
-  useUpdateTodos,
-  useTodoFilters,
-  useDeleteTodos
-} from '@/hooks/todo'
+import { useTodoStore } from '@/stores/todo'
 import TheIcon from '@/components/TheIcon'
 import TheButton from '@/components/TheButton'
 import styles from './TodoFilters.module.scss'
 
 export default function TodoFilters() {
   const [isAllChecked, setIsAllChecked] = useState(false)
-  const { data: todos } = useFetchTodos()
-  const { mutate: mutateForUpdateTodos } = useUpdateTodos()
-  const { mutate: mutateForDeleteTodos, isPending } = useDeleteTodos()
-  const filterStatus = useTodoFilters(state => state.filterStatus)
-  const filters = useTodoFilters(state => state.filters)
-  const setFilterStatus = useTodoFilters(state => state.setFilterStatus)
+  const todos = useTodoStore(state => state.todos)
+  const filters = useTodoStore(state => state.filters)
+  const filterStatus = useTodoStore(state => state.filterStatus)
+  const isDeleting = useTodoStore(state => state.isLoadingForDeleteTodos)
+  const setFilterStatus = useTodoStore(state => state.setFilterStatus)
+  const updateTodos = useTodoStore(state => state.updateTodos)
+  const deleteTodos = useTodoStore(state => state.deleteTodos)
 
   useEffect(() => {
     if (!todos) return
@@ -26,14 +22,7 @@ export default function TodoFilters() {
   function toggleAllCheckboxes() {
     const done = !isAllChecked
     setIsAllChecked(done)
-    if (todos) {
-      mutateForUpdateTodos(todos.map(todo => ({ ...todo, done })))
-    }
-  }
-  function deleteAllDoneTodos() {
-    if (todos) {
-      mutateForDeleteTodos(todos)
-    }
+    updateTodos(todos.map(todo => ({ ...todo, done })))
   }
 
   return (
@@ -49,8 +38,8 @@ export default function TodoFilters() {
         ))}
         <TheButton
           danger
-          loading={isPending}
-          onClick={deleteAllDoneTodos}>
+          loading={isDeleting}
+          onClick={deleteTodos}>
           완료 삭제
         </TheButton>
       </div>
